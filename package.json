@@ -1,0 +1,35 @@
+{
+  "name": "bun-battery",
+  "version": "1.0.0",
+  "module": "index.ts",
+  "type": "module",
+  "main": "index.ts",
+  "description": "A Bun-native battery status library",
+  "scripts": {
+    "test": "bun test",
+    "build": "bun build ./index.ts --outdir ./dist"
+  },
+  "files": [
+    "dist",
+    "lib",
+    "index.ts",
+    "README.md"
+  ],
+  "keywords": [
+    "bun",
+    "battery",
+    "system",
+    "power"
+  ],
+  "author": "Gard Cappelen",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "bun": ">=1.0.0"
+  }
+}
