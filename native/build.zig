@@ -32,15 +32,11 @@ pub fn build(b: *std.Build) void {
         shared.addCSourceFile(.{
             .file = .{ .cwd_relative = "src/platform/macos/battery.m" },
         });
-    }
-    if (target.result.os.tag == .windows) {
-        std.debug.print("Building for Windows\n", .{});
-
-        shared.addCSourceFile(.{
-            .file = .{ .cwd_relative = "src/platform/windows/battery.c" },
-        });
-
+    } else if (target.result.os.tag == .windows) {
+        std.debug.print("Building for Windows on {s}\n", .{@tagName(target.result.cpu.arch)});
         shared.linkLibC();
+    } else if (target.result.os.tag == .linux) {
+        std.debug.print("Building for Linux on {s}\n", .{@tagName(target.result.cpu.arch)});
     }
 
     // This declares intent for the executable to be installed into the
@@ -56,22 +52,13 @@ pub fn build(b: *std.Build) void {
     });
 
     if (target.result.os.tag == .macos) {
-        std.debug.print("Building for macOS\n", .{});
-        standalone_debug.linkLibC();
         standalone_debug.linkFramework("IOKit");
         standalone_debug.linkFramework("Foundation");
 
         standalone_debug.addCSourceFile(.{
             .file = .{ .cwd_relative = "src/platform/macos/battery.m" },
         });
-    }
-    if (target.result.os.tag == .windows) {
-        std.debug.print("Building for Windows\n", .{});
-
-        standalone_debug.addCSourceFile(.{
-            .file = .{ .cwd_relative = "src/platform/windows/battery.c" },
-        });
-
+    } else if (target.result.os.tag == .windows) {
         standalone_debug.linkLibC();
     }
 
