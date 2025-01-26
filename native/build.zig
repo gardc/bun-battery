@@ -24,7 +24,7 @@ pub fn build(b: *std.Build) void {
     });
 
     if (target.result.os.tag == .macos) {
-        std.debug.print("Building for macOS\n", .{});
+        std.debug.print("Building for macOS on {s}\n", .{@tagName(target.result.cpu.arch)});
         shared.linkLibC();
         shared.linkFramework("IOKit");
         shared.linkFramework("Foundation");

@@ -19,7 +19,9 @@ export function getPlatformSpecificPath(): string {
       archName = "x86_64";
       break;
     default:
-      throw new Error(`Unsupported architecture: ${archName}. Only x64 and arm64/aarch64 are supported.`);
+      throw new Error(
+        `Unsupported architecture: ${archName}. Only x64 and arm64/aarch64 are supported.`
+      );
   }
 
   // Map to correct library extension
@@ -36,6 +38,10 @@ export function getPlatformSpecificPath(): string {
       break;
     default:
       throw new Error(`Unsupported platform: ${platformName}`);
+  }
+
+  if (platformName === "macos" && archName === "x86_64") {
+    throw new Error("only arm64 macOS is supported for now".);
   }
 
   return `lib/${archName}-${platformName}.${extension}`;
