@@ -41,7 +41,7 @@ export function getPlatformSpecificPath(): string {
   }
 
   if (platformName === "macos" && archName === "x86_64") {
-    throw new Error("only arm64 macOS is supported for now".);
+    throw new Error("only arm64 macOS is supported for now");
   }
 
   return `lib/${archName}-${platformName}.${extension}`;
@@ -62,7 +62,15 @@ const lib = dlopen(libraryPath, {
  * @returns Battery percentage between 0 and 100, or -1 if there was an error
  */
 export function getBatteryPercentage(): number {
-  return lib.symbols.getBatteryPercentage();
+  const num = lib.symbols.getBatteryPercentage();
+
+  if (num === -1) {
+    throw new Error("failed to get battery percentage");
+  } else if (num < 0 || num > 100) {
+    throw new Error("invalid battery percentage");
+  }
+
+  return num;
 }
 
 // Optional: Add a default export

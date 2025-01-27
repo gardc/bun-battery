@@ -23,14 +23,13 @@ If your device does not have a battery, it will return -1.
 
 ## Supported platforms
 
-- macOS
-- Windows
-- Linux
+- aarch64-linux
+- aarch64-macos
+- aarch64-windows
+- x86_64-linux
+- x86_64-windows
 
-on
-
-- aarch64
-- x86_64
+Please open an issue if you want to add support for another platform.
 
 ## building
 
